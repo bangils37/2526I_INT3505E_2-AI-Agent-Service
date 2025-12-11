@@ -1,0 +1,61 @@
+retrieval_service/
+├── requirements.txt            # Danh sách dependency Python (pip). Dùng để reproducible env.
+├── .env                        # Biến môi trường (API keys, DB URLs, secrets) — không commit vào git.
+├── data/
+│   ├── chunks/                 # nơi lưu các chunks thử nghiệm
+│   │   └── medical/
+│   │       ├── doc/            # nội dung chunks sau khi clean
+│   │       ├── embedding/      # chunk's embeddings
+│   │       └── metadata/       # metadata tương ứng của chunks
+│   └── documents/              # tài liệu gốc đã crawl
+│       ├── medical/            # tài liệu y tế
+│       |   ├── cleaned/            # dữ liệu đã clean (text sạch)
+│       |   │   ├── doc/            
+│       |   │   └── metadata/       
+│       |   ├── raw/                # dữ liệu thô (html/pdf crawl về)
+│       |   └── parsed/             # dữ liệu đã parse (markdown/json)
+│       └── other/              # tài liệu loại khác
+├── docker/
+│   ├── Dockerfile              # Dockerfile để build image cho service này.
+│   └── docker-compose.yml      # Compose để chạy ES, Redis, app local cho dev.
+├── infra/
+│   ├── elastic/                # Các cấu hình cho Elasticsearch: index templates, mappings, scripts.
+│   ├── k8s/                    # (tuỳ chọn) Kubernetes manifests / Helm chart để deploy.
+│   └── monitoring/             # Cấu hình Prometheus / Grafana / alert rules.
+├── src/
+│   ├── app/
+│   │   ├── main.py             # Entry point FastAPI: tạo app, mount routers, middlewares.
+│   │   ├── config.py           # Loader cấu hình từ .env -> pydantic Settings.
+│   │   ├── schemas/
+│   │   │   ├── corpus_schema.py    # Pydantic models cho dữ liệu văn bản (document, chunk).
+│   │   │   └── search_schema.py    # Pydantic models cho request/response của API.
+│   │   ├── api/
+│   │   │   └── v1/ 
+│   │   │       ├── search.py   # Endpoint /api/v1/search — nhận query, trả kết quả retrieval.
+│   │   │       └── health.py   # Endpoint health check (/health, readiness/liveness).
+│   │   ├── services/
+│   │   │   └── search_service.py# Lớp/logic orchestration: embed query, gọi ES hybrid, rerank.
+│   │   ├── workers/
+│   │   │   ├── ingestion_worker.py # Worker (Celery/RQ) chạy job: crawl->parse->chunk->embed->index.
+│   │   │   └── tasks.py            # Định nghĩa các task (Celery tasks / RQ jobs).
+│   │   ├── pipeline/
+│   │   │   ├── crawler/        # Spider hoặc crawler logic (web/ftp/telegram/...).
+│   │   │   ├── parser/         # Chuyển PDF/DOCX/HTML -> JSON/Markdown chuẩn.
+│   │   │   ├── chunker/        # Chunking: chia đoạn theo heading/token.
+│   │   │   ├── indexing.py        # Index các chunks lên Qdrant.
+│   │   │   └── dedup.py        # Dedup logic: MinHash/SimHash/checksum để loại trùng.
+│   │   ├── log/
+│   │   │   └── logging_config.py 
+│   │   └── clients/
+│   │       ├── elastic_client.py # Wrapper cho es client (retry, timeouts, helpers).
+│   │       ├── qdrant_client.py # Wrapper cho es client (retry, timeouts, helpers).
+│   │       └── openai_client.py  # Wrapper gọi OpenAI (embeddings + rate limit handling).
+│   └── tests/
+│       ├── unit/               # Unit tests cho từng module (chunker, dedup, embedder).
+│       └── integration/        # Integration tests end-to-end (ingest -> search).
+├── tools/
+│   ├── scripts/                # Script tiện ích: reindex.py, snapshot_restore.py, backfill.py.
+│   └── migration/              # Migration scripts cho index mapping/versioning.
+└── docs/
+    ├── api.md                  # Tài liệu API (ví dụ request/response cho /search).
+    └── arch.md                 # Kiến trúc tổng quan: data flow, deployments, SLA.
