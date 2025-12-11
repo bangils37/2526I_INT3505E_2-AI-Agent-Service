@@ -155,7 +155,7 @@ def convert_jsonl_to_docs_and_metadata(
 # Testing as a script
 def main() -> int:
     try:
-        convert_jsonl_to_docs_and_metadata(collection="medical", document_id="small_vinmec_data_prepared")
+        convert_jsonl_to_docs_and_metadata(collection="testing", document_id="small_sample_data_prepared")
     except Exception as e:
         logging.exception(f"❌ Error while converting file: {e}")
         return 1

@@ -69,19 +69,19 @@ def create_app() -> FastAPI:
         title=getattr(settings, "APP_NAME", "retrieval_service"),
         version=getattr(settings, "VERSION", "0.1.0"),
         description="""
-        ## Retrieval Service API
+        ## LMS Retrieval Service API
 
-        Dịch vụ truy xuất thông tin (Retrieval Service) cho hệ thống AI Agent. 
+        Dịch vụ truy xuất thông tin (Retrieval Service) cho hệ thống LMS (Learning Management System) Agent. 
         Cung cấp các chức năng upload tài liệu, tìm kiếm thông tin, và kiểm tra sức khỏe hệ thống.
 
         ### Chức năng chính:
-        - **Upload & Quản lý Tài liệu**: Upload, kiểm tra, và indexing tài liệu vào các collection (medical, testing).
+        - **Upload & Quản lý Tài liệu**: Upload, kiểm tra, và indexing tài liệu vào các collection (testing, lecture).
         - **Tìm kiếm**: Tìm kiếm thông tin trong collection sử dụng hybrid search (lexical + vector).
         - **Health Check**: Giám sát trạng thái các thành phần phụ trợ (Elasticsearch, Qdrant, OpenAI).
 
         ### Collections hỗ trợ:
-        - `medical`: Tài liệu y tế
-        - `testing`: Tài liệu kiểm thử
+        - `testing`: Tài liệu kiểm thử và bài tập
+        - `lecture`: Tài liệu bài giảng và học liệu
 
         ### Authentication:
         Hiện tại không yêu cầu authentication. Trong môi trường production, nên thêm JWT hoặc API key.

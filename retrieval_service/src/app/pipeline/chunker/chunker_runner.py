@@ -166,7 +166,7 @@ def chunking_all_document(
         <CHUNKS_DIR>/<collection>/(doc|metadata)/...
 
     Args:
-        collection (str): Tên collection, ví dụ "medical".
+        collection (str): Tên collection, ví dụ "testing".
         document_id (str): Tên thư mục con bên trong "cleaned" (ví dụ "gg" hoặc "batch_2025_10_10").
         L (int, optional): Kích thước mỗi chunk (theo token). Mặc định = CHUNK_SIZE.
         max_row_words (int, optional): Số từ tối đa trên mỗi dòng khi parse markdown. Mặc định = MAX_ROW_WORDS.
@@ -244,7 +244,7 @@ def chunking_all_document(
 # Testing as a script
 def main() -> None:
     """Entry point khi chạy trực tiếp."""
-    chunking_all_document(collection="medical", document_id="small_vinmec_data_prepared")
+    chunking_all_document(collection="testing", document_id="small_sample_data_prepared")
 
 
 if __name__ == "__main__":

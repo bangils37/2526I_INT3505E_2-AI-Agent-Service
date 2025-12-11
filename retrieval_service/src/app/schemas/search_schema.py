@@ -20,7 +20,7 @@ class SearchRequest(BaseModel):
         rerank (bool): Có thực hiện rerank kết quả hay không (default = False).
         top_k_rerank (int): Số lượng documents đưa vào rerank (default = 5).
     """
-    collection: Literal["medical", "testing"] = Field(default="medical", description="Tên collection để tìm kiếm")
+    collection: Literal["testing", "lecture"] = Field(default="lecture", description="Tên collection để tìm kiếm")
     q: str = Field(..., description="Câu truy vấn người dùng (natural language query)", example="Các triệu chứng của bệnh tiểu đường")
     filters: Optional[Dict[str, Any]] = Field(default=None, description="Bộ lọc metadata", example={"category": "diabetes", "year": 2023})
     k: int = Field(default=10, description="Số lượng kết quả muốn lấy", example=5)
@@ -49,7 +49,7 @@ class SearchResult(BaseModel):
     score: float = Field(..., description="Điểm số tổng hợp", example=0.85)
     bm25_score: Optional[float] = Field(None, description="Điểm BM25", example=0.72)
     vector_sim: Optional[float] = Field(None, description="Độ tương đồng vector", example=0.91)
-    metadata: Optional[Dict[str, Any]] = Field(None, description="Metadata", example={"category": "diabetes", "source": "medical_journal"})
+    metadata: Optional[Dict[str, Any]] = Field(None, description="Metadata", example={"category": "programming", "source": "tutorial"})
     provenance: Optional[Dict[str, Any]] = Field(None, description="Thông tin truy vết", example={"page": 15, "paragraph": 3})
 
 
@@ -64,4 +64,4 @@ class SearchResponse(BaseModel):
 
     query: str = Field(..., description="Câu truy vấn gốc", example="Các triệu chứng của bệnh tiểu đường")
     results: List[SearchResult] = Field(..., description="Danh sách kết quả tìm kiếm")
-    meta: Dict[str, Any] = Field(..., description="Metadata bổ sung", example={"processing_time": 0.45, "total_results": 5, "collection": "medical"})
+    meta: Dict[str, Any] = Field(..., description="Metadata bổ sung", example={"processing_time": 0.45, "total_results": 5, "collection": "testing"})

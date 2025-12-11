@@ -183,7 +183,7 @@ def get_indexing_pipeline() -> IndexingPipeline:
 async def main():
     """Entry point để chạy pipeline từ command line."""
     pipeline = get_indexing_pipeline()
-    await pipeline.run(document_id="small_vinmec_data_prepared", collection="medical")
+    await pipeline.run(document_id="small_sample_data_prepared", collection="testing")
 
 
 if __name__ == "__main__":

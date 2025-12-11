@@ -304,7 +304,7 @@ def chunking_below_scope(scope: str = CHUNKING_SCOPE,
     """Chunking tất cả document trong một scope.
 
     Args:
-        scope (str, optional): Scope ("all", "medical", "other", "testing"). Defaults to CHUNKING_SCOPE.
+        scope (str, optional): Scope ("all", "testing", "lecture", "other"). Defaults to CHUNKING_SCOPE.
         L (int, optional): Ngưỡng số token tối đa cho chunk. Defaults to CHUNK_SIZE.
         max_row_words (int, optional): Số từ tối đa mỗi row. Defaults to MAX_ROW_WORDS.
     """

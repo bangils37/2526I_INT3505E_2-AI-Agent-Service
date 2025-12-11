@@ -46,9 +46,9 @@ async def test_embedding():
     print("🧪 Test embedding nhiều văn bản...")
     try:
         texts = [
-            "Bệnh tiểu đường là một bệnh lý chuyển hóa.",
-            "Triệu chứng thường gặp là khát nước và đi tiểu nhiều.",
-            "Điều trị bao gồm thay đổi lối sống và dùng thuốc."
+            "Unit test là cách kiểm tra từng phần nhỏ của code.",
+            "Integration test kiểm tra sự tương tác giữa các module.",
+            "End-to-end test mô phỏng hành vi người dùng thực tế."
         ]
         embeddings = await client.embed_texts(texts)
         print(f"✅ Embedding {len(texts)} văn bản thành công!")

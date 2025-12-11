@@ -2,8 +2,8 @@
 
 import os
 
-input_path = os.path.normpath("retrieval_service/data/documents/medical/raw/vinmec_data_prepared.jsonl")
-output_path = os.path.normpath("retrieval_service/data/documents/medical/raw/small_vinmec_data_prepared.jsonl")
+input_path = os.path.normpath("retrieval_service/data/documents/testing/raw/sample_data_prepared.jsonl")
+output_path = os.path.normpath("retrieval_service/data/documents/testing/raw/small_sample_data_prepared.jsonl")
 num_lines = 10                    
 
 with open(input_path, "r", encoding="utf-8") as infile, \

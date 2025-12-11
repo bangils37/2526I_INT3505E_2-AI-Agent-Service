@@ -31,8 +31,8 @@ Thực hiện tìm kiếm thông tin trong một collection cụ thể sử dụ
 - **Pagination**: Điều chỉnh số lượng kết quả trả về.
 
 **Ví dụ query:**
-- "Các triệu chứng của bệnh tiểu đường"
-- "Cách điều trị cao huyết áp"
+- "Cách viết unit test hiệu quả"
+- "Giải thích khái niệm OOP"
 """)
 async def search_in_collection(collection: str, req: SearchRequest, request: Request) -> SearchResponse:
     """

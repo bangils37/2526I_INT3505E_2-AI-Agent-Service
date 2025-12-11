@@ -40,7 +40,7 @@ router = APIRouter()
     **Lưu ý:**
     - Phải cung cấp ít nhất một trong hai: `file` hoặc `url_download`.
     - Tài liệu sẽ được lưu trữ tạm thời để chuẩn bị cho bước indexing.
-    - Collection phải là `medical` hoặc `testing`.
+    - Collection phải là `testing` hoặc `lecture`.
     """,
 )
 async def upload_document(

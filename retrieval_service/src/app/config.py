@@ -69,7 +69,7 @@ CHUNKS_DIR = os.getenv("CHUNKS_DIR", "retrieval_service/data/chunks")
 CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", 400))
 MAX_HEADING_LEVELS = int(os.getenv("MAX_HEADING_LEVELS", 10))
 MAX_ROW_WORDS = int(os.getenv("MAX_ROW_WORDS", 20))
-CHUNKING_SCOPE = os.getenv("CHUNKING_SCOPE", "testing")
+CHUNKING_SCOPE = os.getenv("CHUNKING_SCOPE", "lecture")
 
 # Azure OpenAI Configuration
 AZURE_OPENAI_ENDPOINT = os.getenv(
