@@ -17,7 +17,23 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
-@router.post("/search/{collection}", response_model=SearchResponse)
+@router.post("/search/{collection}", response_model=SearchResponse, summary="Tìm kiếm trong collection", description="""
+Thực hiện tìm kiếm thông tin trong một collection cụ thể sử dụng hybrid search.
+
+**Thuật toán tìm kiếm:**
+- **Lexical Search**: Sử dụng BM25 trên Elasticsearch.
+- **Vector Search**: Sử dụng cosine similarity trên Qdrant.
+- **Hybrid**: Kết hợp cả hai với trọng số có thể điều chỉnh.
+
+**Tính năng nâng cao:**
+- **Filters**: Lọc kết quả theo metadata.
+- **Reranking**: Sắp xếp lại kết quả top-k bằng cross-encoder.
+- **Pagination**: Điều chỉnh số lượng kết quả trả về.
+
+**Ví dụ query:**
+- "Các triệu chứng của bệnh tiểu đường"
+- "Cách điều trị cao huyết áp"
+""")
 async def search_in_collection(collection: str, req: SearchRequest, request: Request) -> SearchResponse:
     """
     Thực hiện tìm kiếm trong 1 collection cụ thể.

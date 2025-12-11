@@ -5,7 +5,7 @@ Module cung cấp endpoint health check cho service.
 """
 
 from fastapi import APIRouter, Request
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import logging
 
 from retrieval_service.src.app.log.logging_config import setup_logging
@@ -29,13 +29,26 @@ class HealthResponse(BaseModel):
             `"ok"`, `"down"`, `"error"`, hoặc `"unknown"`.
     """
 
-    status: str
-    elastic: str = "unknown"
-    openai: str = "unknown"
-    qdrant: str = "unknown"
+    status: str = Field(..., description="Trạng thái tổng thể", example="ok")
+    elastic: str = Field("unknown", description="Trạng thái Elasticsearch", example="ok")
+    openai: str = Field("unknown", description="Trạng thái OpenAI", example="ok")
+    qdrant: str = Field("unknown", description="Trạng thái Qdrant", example="ok")
 
 
-@router.get("/health", response_model=HealthResponse)
+@router.get("/health", response_model=HealthResponse, summary="Kiểm tra sức khỏe hệ thống", description="""
+Kiểm tra trạng thái tổng thể của service và các thành phần phụ trợ.
+
+**Các thành phần được kiểm tra:**
+- **Elasticsearch**: Trạng thái kết nối đến Elasticsearch cluster.
+- **Qdrant**: Trạng thái kết nối đến Qdrant vector database.
+- **OpenAI**: Trạng thái kết nối đến OpenAI API cho embeddings.
+
+**Giá trị trạng thái:**
+- `ok`: Thành phần hoạt động bình thường.
+- `down`: Thành phần không khả dụng.
+- `error`: Lỗi khi kiểm tra thành phần.
+- `unknown`: Chưa được khởi tạo hoặc không thể kiểm tra.
+""")
 async def health(request: Request) -> HealthResponse:
     """Kiểm tra sức khoẻ của service.
 

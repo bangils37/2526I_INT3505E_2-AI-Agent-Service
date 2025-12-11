@@ -29,6 +29,19 @@ router = APIRouter()
 @router.put(
     "/documents/{collection}/{document_id}",
     response_model=DocumentUploadResponse,
+    summary="Upload hoặc ghi đè tài liệu",
+    description="""
+    Upload một tài liệu mới hoặc ghi đè tài liệu hiện có vào hệ thống.
+
+    **Cách sử dụng:**
+    - Upload file trực tiếp qua multipart/form-data với field `file`.
+    - Hoặc cung cấp URL để hệ thống tải tài liệu về qua field `url_download`.
+
+    **Lưu ý:**
+    - Phải cung cấp ít nhất một trong hai: `file` hoặc `url_download`.
+    - Tài liệu sẽ được lưu trữ tạm thời để chuẩn bị cho bước indexing.
+    - Collection phải là `medical` hoặc `testing`.
+    """,
 )
 async def upload_document(
     collection: str,
@@ -95,7 +108,15 @@ async def upload_document(
 # -------------------------------------------------------------------------
 @router.get(
     "/documents/{collection}/{document_id}",
-    response_model=DocumentCheckResponse
+    response_model=DocumentCheckResponse,
+    summary="Kiểm tra tài liệu tồn tại",
+    description="""
+    Kiểm tra xem một tài liệu có tồn tại trong hệ thống hay không.
+
+    **Trả về:**
+    - `exists: true` nếu tài liệu đã được upload và sẵn sàng.
+    - `exists: false` nếu tài liệu chưa tồn tại.
+    """,
 )
 async def check_document_exists(
     collection: str, 
@@ -136,6 +157,21 @@ async def check_document_exists(
 @router.post(
     "/documents/{collection}/{document_id}/index",
     response_model=DocumentIndexResponse,
+    summary="Chunking và Indexing tài liệu",
+    description="""
+    Thực hiện quá trình chunking (chia nhỏ) và indexing tài liệu đã upload vào vector database.
+
+    **Quy trình:**
+    1. Parse tài liệu JSONL thành các document và metadata.
+    2. Chunking nội dung thành các đoạn nhỏ phù hợp.
+    3. Tạo embeddings cho các chunk.
+    4. Lưu trữ vào Qdrant và Elasticsearch.
+
+    **Lưu ý:**
+    - Tài liệu phải được upload trước khi index.
+    - Quá trình có thể mất thời gian tùy thuộc vào kích thước tài liệu.
+    - Theo dõi tiến trình qua field `logs` trong response.
+    """,
 )
 async def index_document(
     collection: str, 

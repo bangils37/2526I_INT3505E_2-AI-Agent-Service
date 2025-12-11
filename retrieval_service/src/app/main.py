@@ -68,6 +68,28 @@ def create_app() -> FastAPI:
     app = FastAPI(
         title=getattr(settings, "APP_NAME", "retrieval_service"),
         version=getattr(settings, "VERSION", "0.1.0"),
+        description="""
+        ## Retrieval Service API
+
+        Dịch vụ truy xuất thông tin (Retrieval Service) cho hệ thống AI Agent. 
+        Cung cấp các chức năng upload tài liệu, tìm kiếm thông tin, và kiểm tra sức khỏe hệ thống.
+
+        ### Chức năng chính:
+        - **Upload & Quản lý Tài liệu**: Upload, kiểm tra, và indexing tài liệu vào các collection (medical, testing).
+        - **Tìm kiếm**: Tìm kiếm thông tin trong collection sử dụng hybrid search (lexical + vector).
+        - **Health Check**: Giám sát trạng thái các thành phần phụ trợ (Elasticsearch, Qdrant, OpenAI).
+
+        ### Collections hỗ trợ:
+        - `medical`: Tài liệu y tế
+        - `testing`: Tài liệu kiểm thử
+
+        ### Authentication:
+        Hiện tại không yêu cầu authentication. Trong môi trường production, nên thêm JWT hoặc API key.
+
+        ### Contact:
+        - Email: support@example.com
+        - Docs: [GitHub Repository](https://github.com/bangils37/2526I_INT3505E_2-AI-Agent-Service)
+        """,
         docs_url="/docs",
         redoc_url="/redoc",
         openapi_url="/openapi.json",
@@ -85,19 +107,19 @@ def create_app() -> FastAPI:
     
     # Mount routers
     if search_router:
-        app.include_router(search_router)
+        app.include_router(search_router, tags=["Search"])
         logger.info("Mounted router: retrieval_service.src.app.api.v1.search")
     else:
         logger.warning("search_router không được mount vì import thất bại.")
 
     if health_router:
-        app.include_router(health_router)
+        app.include_router(health_router, tags=["Health"])
         logger.info("Mounted router: retrieval_service.src.app.api.v1.health")
     else:
         logger.warning("health_router không được mount vì import thất bại.")
         
     if document_router:
-        app.include_router(document_router)
+        app.include_router(document_router, tags=["Documents"])
         logger.info("Mounted router: retrieval_service.src.app.api.v1.document")
     else:
         logger.warning("document_router không được mount vì import thất bại.")
