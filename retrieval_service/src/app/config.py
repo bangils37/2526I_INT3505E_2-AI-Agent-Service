@@ -20,7 +20,7 @@ from pydantic_settings import BaseSettings
 from retrieval_service.src.app.log.logging_config import setup_logging
 
 # Load biến môi trường
-BASE_DIR = Path(__file__).resolve().parents[2]
+BASE_DIR = Path(__file__).resolve().parents[3]
 ENV_PATH = BASE_DIR / ".env"
 load_dotenv(dotenv_path=ENV_PATH)
 
@@ -83,6 +83,7 @@ AZURE_OPENAI_DEPLOYMENT = os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4o")
 # Azure Embedding
 ENDPOINT_TEXT3_EMBEDDING = os.getenv("ENDPOINT_TEXT3_EMBEDDING", "")
 API_KEY_TEXT3_EMBEDDING = os.getenv("API_KEY_TEXT3_EMBEDDING", "")
+os.environ["OPENAI_API_KEY"] = API_KEY_TEXT3_EMBEDDING
 
 # Redis
 REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379")

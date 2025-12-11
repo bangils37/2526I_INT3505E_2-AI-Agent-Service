@@ -8,6 +8,7 @@ Cung cấp lớp tiện ích để làm việc với embeddings và chat models.
 - Fallback sang OpenAI mặc định nếu không có.
 """
 
+import os
 import logging
 from typing import List, Optional
 
@@ -42,6 +43,8 @@ class OpenAIEmbeddingClient:
 
         # Chọn embeddings backend
         if endpoint and api_key:
+            os.environ["AZURE_OPENAI_API_KEY"] = api_key
+            os.environ["OPENAI_API_KEY"] = api_key
             self._embeddings = AzureOpenAIEmbeddings(
                 model="text-embedding-3-small",
                 azure_endpoint=endpoint,
@@ -82,6 +85,20 @@ class OpenAIEmbeddingClient:
             Union[AzureOpenAIEmbeddings, OpenAIEmbeddings]: Client embeddings.
         """
         return self._embeddings
+
+    async def is_ready(self) -> bool:
+        """Kiểm tra xem client embedding có sẵn sàng để sử dụng hay không.
+
+        Returns:
+            bool: True nếu client sẵn sàng, False nếu ngược lại.
+        """
+        try:
+            # Thử nhúng một văn bản trống để kiểm tra kết nối
+            await self._embeddings.aembed_query("")
+            return True
+        except Exception as e:
+            logger.error("OpenAI Embedding client không sẵn sàng: %s", e)
+            return False
 
 
 class OpenAIChatGPTClient:
