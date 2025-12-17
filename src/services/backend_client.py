@@ -120,3 +120,28 @@ class BackendClient:
             # Lỗi parse hoặc validation
             logger.error(f"Lỗi validate response từ LMS Backend: {str(e)}")
             raise
+        
+        # Mock response để test chức năng
+        # mock_data = {
+        #     "user_id": "09bab53c-00e1-705e-b547-ea3d1a5bc01b",
+        #     "lesson_id": "693d70aaf318d0552e112242",
+        #     "serie_id": "693d708cf318d0552e112241",
+        #     "lesson_title": None,
+        #     "last_updated": "2025-12-15T14:39:54.662000",
+        #     "is_in_lesson": True,
+        #     "lesson_data": {
+        #         "lesson_title": "Test 1312",
+        #         "lesson_description": "Test 1312",
+        #         "lesson_serie": "693d708cf318d0552e112241",
+        #         "lesson_video": "https://edu-connect-s3.s3.ap-southeast-1.amazonaws.com/files/user-49aa257c-40a1-7054-70b6-f8f3375330d4/videos/ddac5fbe-61bf-40b6-b121-13e998fc840d_index%20(1).mp4",
+        #         "lesson_transcript": "https://edu-connect-s3.s3.ap-southeast-1.amazonaws.com/files/user-49aa257c-40a1-7054-70b6-f8f3375330d4/transcripts/ddac5fbe-61bf-40b6-b121-13e998fc840d_index%20(1)_transcript.txt",
+        #         "transcript_status": "completed",
+        #         "lesson_documents": [],
+        #         "createdAt": "2025-12-13T13:56:58.770000",
+        #         "updatedAt": "2025-12-13T13:58:01.723000",
+        #         "lesson_summary": "https://edu-connect-s3.s3.ap-southeast-1.amazonaws.com/files/user-49aa257c-40a1-7054-70b6-f8f3375330d4/summaries/ddac5fbe-61bf-40b6-b121-13e998fc840d_index%20(1)_summary.txt",
+        #         "lesson_timeline": "https://edu-connect-s3.s3.ap-southeast-1.amazonaws.com/files/user-49aa257c-40a1-7054-70b6-f8f3375330d4/summaries/ddac5fbe-61bf-40b6-b121-13e998fc840d_index%20(1)_timeline.txt"
+        #     }
+        # }
+
+        # return UserTrackingResponse(**mock_data)

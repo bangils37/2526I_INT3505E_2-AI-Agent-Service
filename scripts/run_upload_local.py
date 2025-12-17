@@ -57,7 +57,7 @@ async def run():
             return
 
     try:
-        res = await client.upload_to_vector_db(args.collection, args.document_id, file=data, filename=filename)
+        res = await client.upload_document_full_flow(args.collection, args.document_id, file=data, filename=filename)
         print("Result:\n", res)
     except Exception as e:
         print("Upload failed:", repr(e))

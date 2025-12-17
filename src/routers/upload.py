@@ -54,7 +54,7 @@ async def upload_document(
 			file_bytes = await file.read()
 			final_filename = final_filename or file.filename
 
-		result = await client.upload_to_vector_db(
+		result = await client.upload_document_full_flow(
 			collection, document_id, file=file_bytes, filename=final_filename, url_download=url_download
 		)
 
