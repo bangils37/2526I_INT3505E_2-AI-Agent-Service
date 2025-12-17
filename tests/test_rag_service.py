@@ -21,7 +21,9 @@ async def test_rag_service_answer(mock_retrieval_client, mock_llm_client):
     rag_service = RagService(retrieval=mock_retrieval_client, llm=mock_llm_client)
     payload = {
         "user_question": "What is RAG?",
-        "course_id": 123,
+        "lesson_id": "lesson_123",
+        "serie_id": "serie_456",
+        "is_in_lesson": True,
         "top_k": 2,
         "session_id": "abc-123"
     }
@@ -40,7 +42,7 @@ async def test_rag_service_answer(mock_retrieval_client, mock_llm_client):
     assert len(response["sources"]) == 2
     assert response["sources"][0]["text"] == "context1"
     assert response["sources"][0]["score"] == 0.9
-    assert response["meta"] == {"course_id": 123, "session_id": "abc-123"}
+    assert response["meta"] == {"lesson_id": "lesson_123", "serie_id": "serie_456", "is_in_lesson": True, "session_id": "abc-123"}
 
 @pytest.mark.asyncio
 async def test_rag_service_answer_no_results(mock_retrieval_client, mock_llm_client):
@@ -50,11 +52,12 @@ async def test_rag_service_answer_no_results(mock_retrieval_client, mock_llm_cli
     rag_service = RagService(retrieval=mock_retrieval_client, llm=mock_llm_client)
     payload = {
         "user_question": "Empty search?",
-        "course_id": 456,
+        "lesson_id": "lesson_456",
+        "is_in_lesson": False,
         "top_k": 1
     }
     response = await rag_service.answer(payload)
 
     assert response["answer"] == "No answer found."
     assert len(response["sources"]) == 0
-    assert response["meta"] == {"course_id": 456, "session_id": None}
+    assert response["meta"] == {"lesson_id": "lesson_456", "serie_id": None, "is_in_lesson": False, "session_id": None}

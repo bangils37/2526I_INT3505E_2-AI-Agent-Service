@@ -32,4 +32,4 @@ async def test_llm_client_build_prompt():
     assert "Trả lời dựa trên ngữ cảnh sau:" in prompt
     assert "context1" in prompt
     assert "context2" in prompt
-    assert "Câu hỏi: test question" in prompt
+    assert "Câu hỏi của học sinh: test question" in prompt

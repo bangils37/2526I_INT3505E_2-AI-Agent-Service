@@ -10,6 +10,19 @@ logger = logging.getLogger(__name__)
 
 @router.get("")
 async def health():
+    """Kiểm tra tình trạng của agent và các dịch vụ phụ thuộc.
+
+    Kết quả truy vấn trạng thái của agent, Retrieval, LMS backend, 
+    OpenAI API key và Gemini API key.
+
+    Returns:
+        Dict[str, Any]: Điều kiện chứa trạng thái agent, retrieval và dependencies.
+
+    Example:
+        >>> response = await health()
+        >>> response["agent_status"]
+        'ok'
+    """
     logger.info("Health check started")
     s = get_settings()
     logger.info(f"Settings loaded: RETRIEVAL_SERVICE_URL={s.RETRIEVAL_SERVICE_URL}, LMS_BACKEND_URL={s.LMS_BACKEND_URL}")
