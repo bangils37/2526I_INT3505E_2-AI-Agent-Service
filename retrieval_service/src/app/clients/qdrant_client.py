@@ -63,6 +63,8 @@ class QdrantDB:
             "doc_id": PayloadSchemaType.KEYWORD,
             "category": PayloadSchemaType.KEYWORD,
             "author": PayloadSchemaType.KEYWORD,
+            "serie_id": PayloadSchemaType.KEYWORD,
+            "lesson_id": PayloadSchemaType.KEYWORD,
         }
         
         for field_name, field_type in indexed_fields.items():
