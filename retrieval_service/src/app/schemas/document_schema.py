@@ -17,9 +17,9 @@ class DocumentUploadResponse(BaseModel):
     message: str = Field(..., description="Thông báo kết quả upload.", example="Document uploaded successfully")
     document_id: str = Field(..., description="ID của tài liệu được upload.", example="doc_001")
     
-    collection: Literal["testing", "lecture"] = Field(
+    collection: str = Field(
         default="lecture",
-        description="Tên collection để lưu tài liệu.",
+        description="Tên collection để lưu tài liệu (bất kỳ tên collection hợp lệ).",
         example="lecture"
     )
     
@@ -28,9 +28,9 @@ class DocumentCheckResponse(BaseModel):
 
     exists: bool = Field(..., description="Cờ báo tài liệu có tồn tại hay không.", example=True)
     document_id: str = Field(..., description="ID của tài liệu được kiểm tra.", example="doc_001")
-    collection: Literal["testing", "lecture"] = Field(
+    collection: str = Field(
         default="lecture",
-        description="Tên collection để lưu tài liệu.",
+        description="Tên collection để lưu tài liệu (bất kỳ tên collection hợp lệ).",
         example="lecture"
     )
 
@@ -40,9 +40,9 @@ class DocumentIndexResponse(BaseModel):
     success: bool = Field(..., description="Cờ báo index có thành công hay không.", example=True)
     message: str = Field(..., description="Thông báo kết quả index.", example="Document indexed successfully")
     document_id: str = Field(..., description="ID của tài liệu được index.", example="doc_001")
-    collection: Literal["testing", "lecture"] = Field(
+    collection: str = Field(
         default="lecture",
-        description="Tên collection để lưu tài liệu.",
+        description="Tên collection để lưu tài liệu (bất kỳ tên collection hợp lệ).",
         example="lecture"
     )
     logs: Optional[List[str]] = Field(

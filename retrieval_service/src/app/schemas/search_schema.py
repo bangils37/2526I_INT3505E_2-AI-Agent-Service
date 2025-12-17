@@ -20,7 +20,7 @@ class SearchRequest(BaseModel):
         rerank (bool): Có thực hiện rerank kết quả hay không (default = False).
         top_k_rerank (int): Số lượng documents đưa vào rerank (default = 5).
     """
-    collection: Literal["testing", "lecture"] = Field(default="lecture", description="Tên collection để tìm kiếm")
+    collection: str = Field(default="lecture", description="Tên collection để tìm kiếm (bất kỳ tên collection hợp lệ)")
     q: str = Field(..., description="Câu truy vấn người dùng (natural language query)", example="Các triệu chứng của bệnh tiểu đường")
     filters: Optional[Dict[str, Any]] = Field(default=None, description="Bộ lọc metadata", example={"category": "diabetes", "year": 2023})
     k: int = Field(default=10, description="Số lượng kết quả muốn lấy", example=5)

@@ -57,10 +57,10 @@ class SearchService:
             logger.error(f"Lỗi embedding query: {e}")
             return SearchResponse(query=req.q, results=[], meta={"error": str(e)})
 
-        # --- Bước 2: Vector search ---
+        # --- Bước 2: Vector search (with optional filters) ---
         try:
-            qdrant_results = self.qdrant_client.search_points(query_vector=query_vector, limit=req.k)
-            logger.info(f"Tìm thấy {len(qdrant_results)} kết quả từ Qdrant collection '{req.collection}'")
+            qdrant_results = self.qdrant_client.search_points(query_vector=query_vector, limit=req.k, filters=req.filters)
+            logger.info(f"Tìm thấy {len(qdrant_results)} kết quả từ Qdrant collection '{req.collection}', filters={req.filters}")
         except Exception as e:
             logger.error(f"Lỗi tìm kiếm Qdrant: {e}")
             return SearchResponse(query=req.q, results=[], meta={"error": str(e)})
@@ -100,5 +100,7 @@ class SearchService:
             meta={
                 "returned_results": len(formatted_results),
                 "processing_time_ms": processing_time_ms,
+                "collection": req.collection,
+                "filters": req.filters,
             },
         )
