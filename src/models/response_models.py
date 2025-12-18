@@ -159,25 +159,25 @@ class LessonData(BaseModel):
 
 class UserTrackingResponse(BaseModel):
     """Response từ endpoint tracking của LMS Backend.
-    
+
     Chứa thông tin theo dõi hiện tại của người dùng bao gồm bài học hiện tại,
     khóa học, trạng thái và chi tiết dữ liệu bài học.
-    
+
     Attributes:
         user_id (str): ID người dùng.
-        lesson_id (str): ID bài học hiện tại.
-        serie_id (str): ID khóa học hiện tại.
+        lesson_id (Optional[str]): ID bài học hiện tại (None nếu user không trong lesson).
+        serie_id (Optional[str]): ID khóa học hiện tại (None nếu user không trong lesson).
         lesson_title (Optional[str]): Tiêu đề bài học.
-        last_updated (str): Thời gian cập nhật thông tin theo dõi gần nhất.
+        last_updated (Optional[str]): Thời gian cập nhật thông tin theo dõi gần nhất.
         is_in_lesson (bool): Người dùng có đang trong bài học hay không.
         lesson_data (Optional[LessonData]): Chi tiết dữ liệu bài học.
     """
-    
+
     user_id: str = Field(..., description="ID người dùng", example="09bab53c-00e1-705e-b547-ea3d1a5bc01b")
-    lesson_id: str = Field(..., description="ID bài học hiện tại", example="693d70aaf318d0552e112242")
-    serie_id: str = Field(..., description="ID khóa học hiện tại", example="693d708cf318d0552e112241")
+    lesson_id: Optional[str] = Field(None, description="ID bài học hiện tại (None nếu không trong lesson)", example="693d70aaf318d0552e112242")
+    serie_id: Optional[str] = Field(None, description="ID khóa học hiện tại (None nếu không trong lesson)", example="693d708cf318d0552e112241")
     lesson_title: Optional[str] = Field(None, description="Tiêu đề bài học")
-    last_updated: str = Field(..., description="Thời gian cập nhật gần nhất", example="2025-12-15T14:39:54.662000")
+    last_updated: Optional[str] = Field(None, description="Thời gian cập nhật gần nhất", example="2025-12-15T14:39:54.662000")
     is_in_lesson: bool = Field(..., description="Người dùng có đang trong bài học", example=True)
     lesson_data: Optional[LessonData] = Field(None, description="Chi tiết dữ liệu bài học")
 

@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Dict, Any
 from pydantic import BaseModel, Field
 import logging
 
@@ -17,6 +17,7 @@ class QueryRequest(BaseModel):
         is_in_lesson (bool): Whether the user is currently inside the lesson context.
         top_k (int): Number of search results to retrieve.
         collection (Optional[str]): Optional explicit collection name override.
+        lesson_data (Optional[Dict[str, Any]]): Full lesson data from frontend (title, transcript, summary, etc.)
     """
 
     user_question: str = Field(..., description="Câu hỏi của người dùng", example="Các triệu chứng của bệnh tiểu đường")
@@ -27,6 +28,7 @@ class QueryRequest(BaseModel):
     is_in_lesson: bool = Field(default=False, description="Người dùng có đang ở trong bài học hay không", example=True)
     top_k: int = Field(default=5, ge=1, le=50, description="Số kết quả tìm kiếm trả về", example=5)
     collection: Optional[str] = Field(None, description="Tên collection (nếu muốn ghi đè)", example="lecture")
+    lesson_data: Optional[Dict[str, Any]] = Field(None, description="Dữ liệu lesson từ frontend (title, description, transcript_url, summary_url, timeline_url, etc.)")
 
 
 class UploadForm(BaseModel):

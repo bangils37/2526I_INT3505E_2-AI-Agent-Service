@@ -31,11 +31,15 @@ async def query(payload: QueryRequest):
     llm = LLMClient(s.OPENAI_API_KEY, s.OPENAI_MODEL, s.GEMINI_API_KEY, s.GEMINI_MODEL)
     rag = RagService(retrieval, llm)
     try:
-        # Only check lesson existence if user is in a specific lesson (not general chat)
-        if payload.lesson_id != "general_chat":
+        # Only check lesson existence if:
+        # 1. User is in a specific lesson (not general chat)
+        # 2. AND frontend didn't provide lesson_data (if lesson_data exists, skip upload)
+        if payload.lesson_id != "general_chat" and not payload.lesson_data:
             if not check_existence_lesson(lession_id=payload.lesson_id, serie_id=payload.serie_id):
                 logger.warning(f"Lesson ID {payload.lesson_id} with Serie ID {payload.serie_id} does not exist.")
                 await retrieval.upload_lesson(payload.user_id)
+        elif payload.lesson_data:
+            logger.info(f"Skipping lesson upload - using lesson_data from frontend payload")
 
         res = await rag.answer(payload.dict())
         logger.info("Query processed successfully")
