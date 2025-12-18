@@ -221,7 +221,8 @@ class RagService:
         logger.info(f"Total contexts for LLM: {len(all_contexts)} (lesson: {len(lesson_contexts)}, retrieval: {len(retrieval_contexts)})")
 
         # === Bước 4: Tạo câu trả lời sử dụng LLM với các context vừa tìm được ===
-        answer = self.llm.generate(question, all_contexts)
+        # Pass is_in_lesson để LLM biết cách phản hồi (in-lesson vs general chat)
+        answer = self.llm.generate(question, all_contexts, is_in_lesson=is_in_lesson)
         
         # === Bước 5: Chuẩn bị kết quả trả về ===
         # Tạo danh sách sources (các đoạn văn bản được sử dụng)
