@@ -91,7 +91,7 @@ class BackendClient:
         try:
             # Kết nối tới endpoint tracking của LMS Backend
             async with httpx.AsyncClient(timeout=10.0) as client:
-                url = f"{self.base_url}/api/tracking/user/{user_id}/current"
+                url = f"{self.base_url}/api/v1/tracking/user/{user_id}/current"
                 logger.debug(f"Gọi endpoint theo dõi người dùng: {url}")
                 
                 # Thực hiện GET request
