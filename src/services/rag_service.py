@@ -171,7 +171,18 @@ class RagService:
                 except Exception as e:
                     logger.error(f"Error fetching lesson data from backend: {str(e)}")
                     # Tiếp tục với flow bình thường nếu lỗi
-
+        else:
+            logger.info("User is not in a lesson, lesson contexts is guided to using LMS")
+            lesson_contexts = [] # Lấy từ LMS_guidance.txt
+            # Load nội dung từ file LMS_guidance.txt
+            try:
+                with open("src/core/LMS_guidance.txt", "r", encoding="utf-8") as f:
+                    lms_guidance = f.read()
+                    lesson_contexts.append(f"=== LMS GUIDANCE ===\n{lms_guidance}")
+                    logger.info(f"Added LMS guidance to context ({len(lms_guidance)} chars)")
+            except Exception as e:
+                logger.error(f"Failed to load LMS guidance: {str(e)}")
+            
         # === Bước 2: Xây dựng body tìm kiếm dựa vào ngữ cảnh ===
         retrieval_contexts: List[str] = []
         results = []

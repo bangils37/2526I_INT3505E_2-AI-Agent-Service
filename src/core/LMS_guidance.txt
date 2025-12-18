@@ -1,0 +1,75 @@
+HƯỚNG DẪN SỬ DỤNG HỆ THỐNG EDUCONNECT
+
+1. TỔNG QUAN HỆ THỐNG
+EduConnect là nền tảng quản lý học tập trực tuyến kết nối người dạy và người học.
+- Học viên (Student): Tìm kiếm, theo dõi và học các khóa học trực tuyến.
+- Giảng viên (Instructor): Tạo khóa học, tải lên bài giảng, quản lý học viên và gửi thông báo.
+
+2. QUẢN LÝ TÀI KHOẢN & BẢO MẬT
+
+2.1. Đăng ký và Đăng nhập
+- Đăng ký: Người dùng mới cần cung cấp Email, Tên đầy đủ và Mật khẩu để tạo tài khoản.
+- Đăng nhập: Người dùng có thể đăng nhập bằng Email/Mật khẩu đã đăng ký hoặc sử dụng tài khoản Google (Single Sign-On).
+- Quên mật khẩu: Nếu quên mật khẩu, người dùng chọn chức năng "Quên mật khẩu", nhập email để nhận mã xác nhận và thiết lập mật khẩu mới.
+
+2.2. Quản lý Hồ sơ cá nhân (Profile)
+Người dùng truy cập trang Profile để:
+- Cập nhật thông tin: Tên hiển thị, Giới tính, Ngày sinh, Bio (Giới thiệu bản thân).
+- Ảnh đại diện (Avatar): Tải lên ảnh mới để thay đổi avatar mặc định.
+- Đổi mật khẩu: Thay đổi mật khẩu đăng nhập để bảo vệ tài khoản.
+
+3. CHỨC NĂNG DÀNH CHO HỌC VIÊN
+
+3.1. Trang chủ (Dashboard)
+Nơi tổng hợp thông tin cá nhân của học viên:
+- Khóa học của tôi: Hiển thị danh sách các khóa học (Series) mà học viên đang theo dõi.
+- Truy cập nhanh: Nhấn vào thẻ khóa học để tiếp tục học ngay lập tức.
+
+3.2. Khám phá (Explore)
+Trang tìm kiếm khóa học công khai:
+- Tìm kiếm: Nhập từ khóa tên khóa học vào thanh tìm kiếm.
+- Bộ lọc: Lọc khóa học theo Danh mục (Category) hoặc trạng thái phổ biến.
+- Xem chi tiết: Nhấn vào khóa học để xem giới thiệu, danh sách bài học và thông tin giảng viên.
+
+3.3. Đăng ký Theo dõi (Subscribe)
+- Theo dõi: Tại trang chi tiết khóa học, nhấn nút "Theo dõi" (Subscribe) để thêm khóa học vào Dashboard và nhận thông báo cập nhật.
+- Hủy theo dõi: Nhấn lại nút "Đang theo dõi" để hủy đăng ký.
+- Lợi ích: Nhận email thông báo tự động khi giảng viên gửi tin tức mới.
+
+3.4. Vào học (Learning)
+Trải nghiệm học tập trong trang chi tiết khóa học:
+- Danh sách bài học: Menu bên phải hiển thị danh sách các bài học.
+- Nội dung bài học: Xem video bài giảng, đọc mô tả và tải xuống tài liệu đính kèm (nếu có).
+- Điều hướng: Sử dụng nút "Bài trước" / "Bài sau" để chuyển bài.
+
+4. CHỨC NĂNG DÀNH CHO GIẢNG VIÊN
+
+4.1. Tạo và Quản lý Khóa học (Series)
+Giảng viên có quyền tạo khóa học mới:
+- Tạo mới: Nhập Tên khóa học, Mô tả, Danh mục và tải lên Ảnh bìa (Thumbnail).
+- Trạng thái: 
+  + Nháp: Chỉ giảng viên mới thấy.
+  + Xuất bản (Publish): Công khai cho tất cả học viên tìm kiếm và đăng ký.
+- Chỉnh sửa: Cập nhật thông tin hoặc xóa khóa học.
+
+4.2. Quản lý Bài học (Lessons)
+Trong khóa học do mình sở hữu, giảng viên có thể:
+- Thêm bài học: Tạo bài học mới gồm Tên, Mô tả, Video và Tài liệu.
+- Sửa/Xóa: Cập nhật nội dung bài học hoặc xóa bài học cũ.
+
+4.3. Gửi Thông báo (Notification)
+Tính năng tương tác với học viên:
+- Cách dùng: Vào trang chi tiết khóa học -> Nhấn nút "Thông báo".
+- Nhập liệu: Điền Tiêu đề và Nội dung thông báo.
+- Kết quả: Hệ thống tự động gửi Email đến tất cả học viên đang theo dõi khóa học đó (sử dụng dịch vụ AWS SES).
+
+5. HỖ TRỢ THÔNG MINH (AI CHATBOT)
+Biểu tượng Chatbot ở góc màn hình hỗ trợ 24/7:
+- Chức năng: Giải đáp câu hỏi thường gặp, hướng dẫn sử dụng tính năng và tìm kiếm khóa học.
+- Tương tác: Người dùng có thể chat bằng ngôn ngữ tự nhiên.
+
+THÔNG TIN KỸ THUẬT (Dành cho AI Context)
+- Database: MongoDB lưu trữ dữ liệu người dùng và khóa học.
+- Email Service: AWS SES dùng để gửi mail thông báo và xác thực.
+- Storage: AWS S3 lưu trữ video và hình ảnh.
+- Authentication: AWS Cognito quản lý xác thực người dùng.
